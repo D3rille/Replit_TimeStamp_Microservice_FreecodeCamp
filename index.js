@@ -28,6 +28,7 @@ app.get("/api/:date?", function (req, res) {
   let unix = 0;
   let utc = "";
   let dateObj = new Date();
+
   if (date) {
     if (date.includes("-")) {
       dateObj = new Date(date);
@@ -36,7 +37,7 @@ app.get("/api/:date?", function (req, res) {
       dateObj = new Date(unix);
     }
   }
-  if (dateObj.toString() === "Invalid Date") {
+  if (dateObj.toString() === "Invalid Date" || isNaN(dateObj.getTime())) {
     res.json({ error: "Invalid Date" });
   } else {
     unix = dateObj.getTime();
